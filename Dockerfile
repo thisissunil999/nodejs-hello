@@ -1,17 +1,11 @@
-FROM node:10
+FROM node:8-slim
 
-# Setting working directory. All the path will be relative to WORKDIR
-WORKDIR /usr/src/app
+WORKDIR /opt/app/
 
-# Installing dependencies
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
 
-# Copying source files
+RUN yarn install
+
 COPY . .
 
-# Building app
-RUN npm run build
-
-# Running the app
-CMD [ "npm", "start" ]
+CMD yarn start
